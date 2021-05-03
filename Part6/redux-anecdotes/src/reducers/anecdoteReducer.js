@@ -22,8 +22,35 @@ const initialState = anecdotesAtStart.map(asObject)
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
+  switch (action.type) {
+    case 'CREATE':
+      return state.concat(action.data)
+    case 'VOTE':
+      const id = action.data.id
+      const changeAnec = state.find(n => n.id === id)
+      const newAnecdote = { ...changeAnec, votes: changeAnec.votes + 1 }
+      return state.map(anecdote => anecdote.id !== id ? anecdote : newAnecdote)
+    default: 
+      return state
+  }
+}
 
-  return state
+export const newVote = id => {
+  return {
+    type: 'VOTE',
+    data: { id }
+  }
+}
+
+export const createAnecdote = content => {
+  return {
+    type: 'CREATE',
+    data: {
+      content,
+      id: getId(),
+      votes: 0
+    }
+  }
 }
 
 export default reducer
