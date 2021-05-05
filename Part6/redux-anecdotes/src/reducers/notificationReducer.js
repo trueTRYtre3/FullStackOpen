@@ -1,16 +1,14 @@
 
-
-export const setNotification = content => {
-    return {
-        type: 'SET',
-        content
+export const setNotification = (content, time) => {
+    return dispatch => {
+        dispatch({
+            type: 'SET',
+            content
+        })
+        setTimeout(() => {
+            dispatch({ type: 'REMOVE' })
+        }, time)
     } 
-}
-
-export const removeNotification = () => {
-    return {
-        type: 'REMOVE'
-    }
 }
 
 const reducer = (state = '', action) => {

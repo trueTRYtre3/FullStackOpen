@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { newVote } from '../reducers/anecdoteReducer'
-import { setNotification, removeNotification } from '../reducers/notificationReducer'
 
 const AnecodeList = () => {
     const dispatch = useDispatch()
@@ -13,26 +12,17 @@ const AnecodeList = () => {
             n.content.toLowerCase().includes(filterWords.toLowerCase()))
     })
 
-    const orderedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
-
-    const vote = ({ id, content }) => {
-        dispatch(newVote(id))
-        dispatch(setNotification(`you liked ${content}`))
-        setTimeout(() => {
-            dispatch(removeNotification())
-        }, 5000)
-    }
-
     return (
         <div>
-            {orderedAnecdotes.map(anecodote => (
-                <div key={anecodote.id}>
+            {anecdotes.sort((a, b) => b.votes - a.votes)
+            .map(anecdote => (
+                <div key={anecdote.id}>
                     <div>
-                        {anecodote.content}
+                        {anecdote.content}
                     </div>
                     <div>
-                        has {anecodote.votes}
-                        <button onClick={() => vote(anecodote)}>vote</button>
+                        has {anecdote.votes}
+                        <button onClick={() => dispatch(newVote(anecdote))}>vote</button>
                     </div>
                 </div>
             ))}
