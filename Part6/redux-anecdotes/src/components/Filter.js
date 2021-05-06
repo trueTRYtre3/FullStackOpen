@@ -1,13 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { filterWords } from '../reducers/filterReducer'
 
-const Filter = () => {
-    const dispatch = useDispatch()
+const Filter = (props) => {
+    // const dispatch = useDispatch()
 
     const handleChange = event => {
         const word = event.target.value
-        dispatch(filterWords(word))
+        props.filterWords(word)
+        // dispatch(filterWords(word))
     }
 
     const style = {
@@ -21,4 +23,7 @@ const Filter = () => {
     )
 }
 
-export default Filter
+export default connect(
+    null,
+    { filterWords }
+)(Filter)
