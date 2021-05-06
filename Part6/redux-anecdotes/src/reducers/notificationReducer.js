@@ -1,11 +1,14 @@
-
+let handleTime
 export const setNotification = (content, time) => {
-    return dispatch => {
+    return dispatch => {  
         dispatch({
             type: 'SET',
             content
         })
-        setTimeout(() => {
+        console.log(handleTime)
+        if (handleTime) clearTimeout(handleTime)
+        
+        handleTime = setTimeout(() => {
             dispatch({ type: 'REMOVE' })
         }, time)
     } 

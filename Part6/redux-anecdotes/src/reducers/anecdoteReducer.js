@@ -17,7 +17,7 @@ const reducer = (state = [], action) => {
 
 export const newVote = anecdote => {
   return async dispatch => {
-    dispatch(setNotification(`you liked '${anecdote.content}'`, 8000))
+    dispatch(setNotification(`you liked '${anecdote.content}'`, 5000))
     const obj = { ...anecdote, votes: anecdote.votes + 1 } 
     const newAnecdote = await service.update(anecdote.id, obj)
     dispatch({
@@ -39,7 +39,7 @@ export const initializeAnecdotes = () => {
 
 export const createAnecdote = data => {
   return async dispatch => {
-    dispatch(setNotification(`you created '${data}'`, 8000))
+    dispatch(setNotification(`you created '${data}'`, 5000))
 
     const newAnecdote = await service.createNew(data)
     dispatch({
