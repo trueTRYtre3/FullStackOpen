@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
+import { 
+  Route, 
+  Switch, 
+  Link,
+  useHistory, 
+  useRouteMatch } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -18,10 +23,24 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => 
+        <li key={anecdote.id} >
+          <Link to={`/anecdote/${anecdote.id}`}>{anecdote.content}</Link>
+        </li>)}
     </ul>
   </div>
 )
+
+const Anecdote = ({ anecdote }) => {
+  console.log(anecdote)
+  return (
+    <div>
+      <h2>{anecdote.content}</h2>
+      <p>has {anecdote.votes} votes</p>
+      <p>for more info see <a href={anecdote.info}>{anecdote.info}</a></p>
+    </div>
+  )
+}
 
 const About = () => (
   <div>
@@ -46,10 +65,12 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
+  const history = useHistory()
+
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
+  
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -59,6 +80,11 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    history.push('/')
+    props.setNotification(`a new anecdote ${content} created!`)
+    setTimeout(() => {
+      props.setNotification('')
+    }, 10000)
   }
 
   return (
@@ -105,7 +131,7 @@ const App = () => {
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
-    anecdote.id = (Math.random() * 10000).toFixed(0)
+    anecdote.id = String((Math.random() * 10000).toFixed(0))
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
@@ -123,16 +149,24 @@ const App = () => {
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
+  const match = useRouteMatch('/anecdote/:id')
+  const matchingAnecdote = match
+    ? anecdoteById(match.params.id)
+    : null 
   return (
     <div>
-      <h1>Software anecdotes</h1>
+      <h1>Software anecdotes</h1>  
       <Menu />
+      {notification} 
       <Switch>
         <Route path='/about'>
           <About />
         </Route>
         <Route path='/create'>
-          <CreateNew addNew={addNew} />
+          <CreateNew addNew={addNew} setNotification={setNotification} />
+        </Route>
+        <Route path='/anecdote/:id'>
+          <Anecdote anecdote={matchingAnecdote} />
         </Route>
         <Route path='/'>
           <AnecdoteList anecdotes={anecdotes} />
