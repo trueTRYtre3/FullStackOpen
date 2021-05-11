@@ -8,18 +8,13 @@ const CreateNew = (props) => {
     const info = useField('info')
 
     const history = useHistory()
-  
-    // const [content, setContent] = useState('')
-    // const [author, setAuthor] = useState('')
-    // const [info, setInfo] = useState('')
     
-  
     const handleSubmit = (e) => {
       e.preventDefault()
       props.addNew({
-        content: content.value,
-        author: author.value,
-        info: info.value,
+        content: content.main.value,
+        author: author.main.value,
+        info: info.main.value,
         votes: 0
       })
       history.push('/')
@@ -28,6 +23,12 @@ const CreateNew = (props) => {
         props.setNotification('')
       }, 10000)
     }
+
+    const resetState = () => {
+      [content, author, info].forEach(e => {
+        e.reset(true)
+      })
+    }
   
     return (
       <div>
@@ -35,18 +36,19 @@ const CreateNew = (props) => {
         <form onSubmit={handleSubmit}>
           <div>
               content 
-              <input {...content}/>
+              <input {...content.main}/>
           </div>
           <div>
               author 
-              <input {...author} />
+              <input {...author.main} />
           </div>
           <div>
               url for more info 
-              <input {...info} />
+              <input {...info.main} />
           </div>
           <button>create</button>
         </form>
+        <button onClick={resetState}>reset</button>
       </div>
     )
   

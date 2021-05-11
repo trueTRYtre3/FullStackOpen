@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import { 
-  Route, 
-  Switch, 
-  useRouteMatch } from 'react-router-dom'
+import { Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import CreateNew from './components/Create'
 import About from './components/About'
@@ -10,8 +7,6 @@ import Menu from './components/Menu'
 import Footer from './components/Footer'
 import AnecdoteList from './components/AnecdoteList'
 import Anecdote from './components/Anecdote'
-
-
 
 
 const App = () => {
@@ -39,8 +34,8 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+  const anecdoteById = (id) => 
+      anecdotes.find(a => a.id === id)
 
   const vote = (id) => {
     const anecdote = anecdoteById(id)
