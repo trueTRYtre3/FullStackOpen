@@ -7,7 +7,6 @@ const setToken = newToken => {
 	token = `bearer ${newToken}`
 }
 
-
 const getAll = async () => {
 	const request = await axios.get(baseURL)
 	return request.data
