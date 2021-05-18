@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialBlog, createBlog, updateBlog, removeBlog } from './reducers/blogReducer'
+import { createNotification } from './reducers/notificationReducer'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Create from './components/Create'
@@ -8,26 +9,22 @@ import blogService from './services/blogService'
 import BlogList from './components/BlogList'
 
 
+
 const App = () => {
   const dispatch = useDispatch()
-  const blogs = useSelector(state => state.sort((a,b) => b.likes - a.likes))
+  const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes - a.likes))
+  const notification = useSelector(state => state.notification)
+  const style = { display: notification === ''  ? 'none' : '' }
+  console.log('blogs', blogs)
+  console.log('notification:', notification)
 
-  // const [blogs, setBlogs] = useState([])
   const [user, changeUser] = useState(null)
-  const [success, changeSuccess] = useState(false)
-  //   const [successMessage, setSuccessMessage] = useState('')
-  //   const [newBlog, setNewBlog] = useState('')
 
   const viewCreation = useRef()
 
   useEffect(() => {
-    // blogService.getAll()
-    // 	.then(initialBlog => {
-    // 		initialBlog.sort((a,b) => b.likes-a.likes)
-    // 		setBlogs(initialBlog)
-    // 	})
     dispatch(initialBlog())
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -48,16 +45,8 @@ const App = () => {
 
   const createdBlog = (title, author, url) => {
     try {
-      // blogService
-      // 	.create({ title, author, url })
-      // 	.then(response => {
-      // 		setBlogs(blogs.concat(response))
-      // 		changeSuccess(true)
-      // 		setNewBlog(response)
-      // 		setSuccessMessage(response)
-      // 		viewCreation.current.controlCreate()
-      // 	})
       dispatch(createBlog({ title, author, url }))
+      dispatch(createNotification(`a new blog ${title} by ${author} added`))
       viewCreation.current.controlCreate()
     } catch(exception) {
       console.log(exception)
@@ -65,45 +54,16 @@ const App = () => {
   }
 
   const updateBlogs = (id, newObj) => {
-    // blogService
-    // .update(id, newObj)
-    // .then(response => {
-    // blogs.forEach(blog => {
-    // if (blog.user && (blog.user.id === response.user)) {
-    // response.user = blog.user
-    // }
-    // })
-    // const newBlogs = blogs.map(blog => blog.id === response.id ? response : blog)
-    // newBlogs.sort((a,b) => b.likes-a.likes)
-    // setBlogs(newBlogs)
-    // })
     dispatch(updateBlog(id, newObj))
   }
 
-  const deleteBlogs = id => {
+  const deleteBlogs = ({ id,title,author }) => {
     try {
-      // blogService
-      // .deleteBlog(id)
-      // .then(response => {
-      // console.log(response.status)
-      // setBlogs(blogs.filter(blog => blog.id !== id))
-      // })
+      dispatch(createNotification(`${title} by ${author} was deleted`))
       dispatch(removeBlog(id))
     } catch(exception) {
       console.log(exception)
     }
-  }
-
-  const handleSuccess = () => {
-    setTimeout(() => {
-      changeSuccess(false)
-    }, 5000)
-    return (
-      <h2 className="message">
-        {/* a new blog {successMessage.title} by {successMessage.author} added */}
-			nothing here
-      </h2>
-    )
   }
 
   const handleLogout = () => {
@@ -118,22 +78,22 @@ const App = () => {
       {user === null
         ? <Login loginUser={loginUser} />
         : <>
-          {success && handleSuccess()}
+          <div style={style}>
+            <h2 className='message'>{notification}</h2>
+          </div>
           {user.name} logged in <button onClick={handleLogout}>logout</button>
           <Blog ref={viewCreation} cancelButton='cancel'>
-            <Create createdBlog={createdBlog} success={success}/>
+            <Create createdBlog={createdBlog} />
           </Blog>
           <br />
-          <div>
-            {blogs.map(blog =>
-              <BlogList
-                key={blog.id}
-                blog={blog}
-                updateBlogs={updateBlogs}
-                deleteBlogs={deleteBlogs}
-              />
-            )}
-          </div>
+          {blogs.map(blog =>
+            <BlogList
+              blog={blog}
+              key={blog.id}
+              updateBlogs={updateBlogs}
+              deleteBlogs={deleteBlogs}
+            />
+          )}
         </>
       }
     </div>

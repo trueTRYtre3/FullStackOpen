@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createNotification } from '../reducers/notificationReducer'
 import login from '../services/login'
 
 const Login = ({ loginUser }) => {
   const [username, changeUsername] = useState('')
   const [password, changePassword] = useState('')
-  const [error, changeError] = useState(false)
+  const dispatch = useDispatch()
+  const notifiction = useSelector(state => state.notification)
+
+  const style = { display: notifiction === '' ? 'none' : '' }
 
   const handleLogin = async e => {
     e.preventDefault()
@@ -14,20 +19,17 @@ const Login = ({ loginUser }) => {
       changeUsername('')
       changePassword('')
     } catch(exceptions) {
-      changeError(true)
       console.log(exceptions)
-      setTimeout(() => {
-        changeError(false)
-      }, 5000)
-
+      dispatch(createNotification('wrong username or password'))
     }
-
   }
 
   return (
     <div>
       <h1>Login to Application</h1>
-      {error && <h2 className='errorMessage'>wrong username or password</h2>}
+      <div style={style}>
+        <h2 className='errorMessage'>{notifiction}</h2>
+      </div>
       <form onSubmit={handleLogin}>
         <div>
           <><strong>username: </strong></>

@@ -32,12 +32,12 @@ const BlogList = ({ blog, updateBlogs, deleteBlogs }) => {
 
   const handleDelete = () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      deleteBlogs(blog.id)
+      deleteBlogs(blog)
     }
   }
 
   return (
-    <div style={blogStyle} className='blog' key={blog.id}>
+    <div style={blogStyle} className='blog'>
       <span>{blog.title} {blog.author} </span><button onClick={newDisplay} style={{ borderRadius: 4 }}>{view}</button>
       <div style={display} className='extraDetails'>
         <p>{blog.url}</p>

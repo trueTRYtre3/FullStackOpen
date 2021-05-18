@@ -13,7 +13,6 @@ export const initialBlog = () => {
 export const createBlog = (newObject) => {
   return async dispatch => {
     const newBlog = await blogService.create(newObject)
-    console.log(newBlog)
     dispatch({
       type: 'CREATE',
       data: newBlog
@@ -24,7 +23,6 @@ export const createBlog = (newObject) => {
 export const updateBlog = (id, newObject) => {
   return async dispatch => {
     const updatedBlog = await blogService.update(id, newObject)
-    console.log(updatedBlog)
     dispatch({
       type: 'UPDATE',
       data: updatedBlog
