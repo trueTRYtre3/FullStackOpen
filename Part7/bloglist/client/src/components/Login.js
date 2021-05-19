@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createNotification } from '../reducers/notificationReducer'
+import { handleLogin } from '../reducers/loginReducer'
 import login from '../services/login'
 
-const Login = ({ loginUser }) => {
+const Login = () => {
   const [username, changeUsername] = useState('')
   const [password, changePassword] = useState('')
   const dispatch = useDispatch()
@@ -11,11 +12,11 @@ const Login = ({ loginUser }) => {
 
   const style = { display: notifiction === '' ? 'none' : '' }
 
-  const handleLogin = async e => {
+  const loginUser = async e => {
     e.preventDefault()
     try {
       const newUser = await login({ username, password })
-      loginUser(newUser)
+      dispatch(handleLogin(newUser))
       changeUsername('')
       changePassword('')
     } catch(exceptions) {
@@ -30,7 +31,7 @@ const Login = ({ loginUser }) => {
       <div style={style}>
         <h2 className='errorMessage'>{notifiction}</h2>
       </div>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={loginUser}>
         <div>
           <><strong>username: </strong></>
           <input
