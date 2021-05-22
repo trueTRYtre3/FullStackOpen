@@ -1,46 +1,53 @@
-import React, { useState, useImperativeHandle } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-const Blog = React.forwardRef((props, ref) => {
-  const [showCreate, changeCreate] = useState(false)
+const Blog = ({ children }) => {
+  // const [view, changeView] = useState('view')
 
-  const creationDisplay = { display: showCreate ? '': 'none' }
-  const creationButton = {
-    display: showCreate ? 'none' : '',
-    margin: 10,
-    borderRadius: 4
+  // const display = { display: view === 'view' ? 'none' : '' }
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
   }
 
+  // const newDisplay = () => {
+  //   view === 'view' ? changeView('hide') : changeView('view')
+  // }
 
-  const controlCreate = () => {
-    changeCreate(!showCreate)
-  }
+  // const handleLikes = () => {
+  //   try {
+  //     const newBlog = {
+  //       ...blog,
+  //       likes: blog.likes + 1
+  //     }
+  //     updateBlogs(blog.id, newBlog)
+  //   } catch (exception) {
+  //     console.log(exception)
+  //   }
+  // }
 
-  useImperativeHandle(ref, () => {
-    return {
-      controlCreate
-    }
-  })
-
+  // const handleDelete = () => {
+  //   if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+  //     deleteBlogs(blog)
+  //   }
+  // }
 
   return (
-    <div>
-      <button
-        onClick={controlCreate}
-        style={creationButton}>
-            create blog
-      </button>
-      <div style={creationDisplay}>
-        {props.children}
-        <button onClick={controlCreate}>{props.cancelButton}</button>
-      </div>
+    <div style={blogStyle} className='blog'>
+      {children }
+      {/* <span>{blog.title} {blog.author} </span><button onClick={newDisplay} style={{ borderRadius: 4 }}>{view}</button>
+      <div style={display} className='extraDetails'>
+        <p>{blog.url}</p>
+						likes {blog.likes} <button style={{ borderRadius: 4 }} onClick={handleLikes} id='like-button'>like</button>
+        <p>{blog.user !== undefined && blog.user.name}</p>
+        <button onClick={handleDelete}>remove</button>
+      </div> */}
     </div>
   )
-})
-
-Blog.displayName = 'Blog'
-Blog.propTypes = {
-  cancelButton: PropTypes.string.isRequired
 }
 
 export default Blog

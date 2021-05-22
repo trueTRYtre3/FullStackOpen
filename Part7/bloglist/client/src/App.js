@@ -1,79 +1,69 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { initialBlog, createBlog, updateBlog, removeBlog } from './reducers/blogReducer'
-import { createNotification } from './reducers/notificationReducer'
-import { isLogged, handleLogout } from './reducers/loginReducer'
-import Blog from './components/Blog'
-import Login from './components/Login'
-import Create from './components/Create'
-import BlogList from './components/BlogList'
+import React from 'react'
+// import { useDispatch } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
+// import { initialBlog } from './reducers/blogReducer'
+// import { createNotification } from './reducers/notificationReducer'
+// import { isLogged } from './reducers/loginReducer'
+// import Blog from './components/BlogList'
+// import Create from './components/Create'
+import BlogPage from './components/BlogPage'
 
 
 
 const App = () => {
-  const dispatch = useDispatch()
-  const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes - a.likes))
-  const notification = useSelector(state => state.notification)
-  const user = useSelector(state => state.login)
-  const style = { display: notification === ''  ? 'none' : '' }
-  // console.log('blogs', blogs)
-  // console.log('notification:', notification)
+  // const dispatch = useDispatch()
+  // const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes - a.likes))
+  // const notification = useSelector(state => state.notification)
+  // const user = useSelector(state => state.login)
+  // const style = { display: notification === ''  ? 'none' : '' }
 
-  // const [user, changeUser] = useState(null)
+  // const viewCreation = useRef()
 
-  const viewCreation = useRef()
+  // useEffect(() => {
+  //   dispatch(initialBlog())
+  // }, [])
 
-  useEffect(() => {
-    dispatch(initialBlog())
-  }, [])
+  // useEffect(() => {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
+  //   if (loggedUserJSON) {
+  //     const tokenUser = JSON.parse(loggedUserJSON)
+  //     dispatch(isLogged(tokenUser))
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
-    if (loggedUserJSON) {
-      const tokenUser = JSON.parse(loggedUserJSON)
-      dispatch(isLogged(tokenUser))
-    }
-    // const tokenUser = JSON.parse(loggedUserJSON)
-    // changeUser(tokenUser)
-    // blogService.setToken(tokenUser.token)
-  }, [])
 
-  // const loginUser = (userObject) => {
-  //   blogService.setToken(userObject.token)
-  //   window.localStorage.setItem(
-  //     'loggedBlogUser', JSON.stringify(userObject)
-  //   )
-  //   changeUser(userObject)
+  // const createdBlog = (title, author, url) => {
+  //   try {
+  //     dispatch(createBlog({ title, author, url }))
+  //     dispatch(createNotification(`a new blog ${title} by ${author} added`))
+  //     viewCreation.current.controlCreate()
+  //   } catch(exception) {
+  //     console.log(exception)
+  //   }
   // }
 
-  const createdBlog = (title, author, url) => {
-    try {
-      dispatch(createBlog({ title, author, url }))
-      dispatch(createNotification(`a new blog ${title} by ${author} added`))
-      viewCreation.current.controlCreate()
-    } catch(exception) {
-      console.log(exception)
-    }
-  }
+  // const updateBlogs = (id, newObj) => {
+  //   dispatch(updateBlog(id, newObj))
+  // }
 
-  const updateBlogs = (id, newObj) => {
-    dispatch(updateBlog(id, newObj))
-  }
-
-  const deleteBlogs = ({ id,title,author }) => {
-    try {
-      dispatch(createNotification(`${title} by ${author} was deleted`))
-      dispatch(removeBlog(id))
-    } catch(exception) {
-      console.log(exception)
-    }
-  }
+  // const deleteBlogs = ({ id,title,author }) => {
+  //   try {
+  //     dispatch(createNotification(`${title} by ${author} was deleted`))
+  //     dispatch(removeBlog(id))
+  //   } catch(exception) {
+  //     console.log(exception)
+  //   }
+  // }
 
 
   return (
     <div>
-      <h1>Blogs</h1>
-      {user === null
+      {/* <Header /> */}
+      <h1>Blog App</h1>
+      <Switch>
+        <Route path='/' exact component={BlogPage} />
+      </Switch>
+      {/* {user === null
         ? <Login />
         : <>
           <div style={style}>
@@ -93,7 +83,7 @@ const App = () => {
             />
           )}
         </>
-      }
+      } */}
     </div>
   )
 }

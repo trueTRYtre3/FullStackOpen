@@ -27,9 +27,9 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login to Application</h1>
+      <h2>Login to Application</h2>
       <div style={style}>
-        <h2 className='errorMessage'>{notifiction}</h2>
+        <h3 className='errorMessage'>{notifiction}</h3>
       </div>
       <form onSubmit={loginUser}>
         <div>
