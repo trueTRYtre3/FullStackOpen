@@ -3,7 +3,6 @@ import blogService from '../services/blogService'
 export const initialBlog = () => {
   return async dispatch => {
     const response = await blogService.getAll()
-    console.log('response', response)
     dispatch({
       type: 'INITIALIZE',
       data: response

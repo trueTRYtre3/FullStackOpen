@@ -1,51 +1,69 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
-import Create from './Create'
-import { initialBlog } from '../reducers/blogReducer'
-import { handleLogout } from '../reducers/loginReducer'
-// import { isLogged } from '../reducers/loginReducer'
-import Blog from './Blog'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
+const BlogList = ({ children }) => {
+  // const [view, changeView] = useState('view')
 
-const BlogList = () => {
-  const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes-a.likes))
-  const notification = useSelector(state => state.notification)
-  const user = useSelector(state => state.login)
-  const style = { display: notification === '' ? 'none' : '' }
-  const dispatch = useDispatch()
-  console.log('user', user)
+  // const display = { display: view === 'view' ? 'none' : '' }
 
-  useEffect(() => {
-    dispatch(initialBlog())
-  }, [])
+  const blogStyle = {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
+  }
 
-  // useEffect(() => {
-  //   const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
-  //   if (loggedUserJSON) {
-  //     const tokenUser = JSON.parse(loggedUserJSON)
-  //     dispatch(isLogged(tokenUser))
+  // const newDisplay = () => {
+  //   view === 'view' ? changeView('hide') : changeView('view')
+  // }
+
+  // const handleLikes = () => {
+  //   try {
+  //     const newBlog = {
+  //       ...blog,
+  //       likes: blog.likes + 1
+  //     }
+  //     updateBlogs(blog.id, newBlog)
+  //   } catch (exception) {
+  //     console.log(exception)
   //   }
-  // }, [])
+  // }
+
+  // const handleDelete = () => {
+  //   if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+  //     deleteBlogs(blog)
+  //   }
+  // }
+
+  // const updateBlogs = (id, newObj) => {
+  //   dispatch(updateBlog(id, newObj))
+  // }
+
+  // const deleteBlogs = ({ id,title,author }) => {
+  //   try {
+  //     dispatch(createNotification(`${title} by ${author} was deleted`))
+  //     dispatch(removeBlog(id))
+  //   } catch(exception) {
+  //     console.log(exception)
+  //   }
+  // }
 
   return (
-    <div>
-      <div style={style}>
-        <h3 className='message'>{notification}</h3>
-      </div>
-      {user.name} logged in <button onClick={() => dispatch(handleLogout())}>logout</button>
-      <Create />
-      {blogs.map(blog =>
-        <Blog key={blog.id}>
-          {blog.title}
-        </Blog>)}
+    <div style={blogStyle} className='blog'>
+      <Link to={`/blogs/${children.id}`}>
+        {children.title} {children.author}
+      </Link>
+      {/* <span>{blog.title} {blog.author} </span><button onClick={newDisplay} style={{ borderRadius: 4 }}>{view}</button>
+      <div style={display} className='extraDetails'>
+        <p>{blog.url}</p>
+						likes {blog.likes} <button style={{ borderRadius: 4 }} onClick={handleLikes} id='like-button'>like</button>
+        <p>{blog.user !== undefined && blog.user.name}</p>
+        <button onClick={handleDelete}>remove</button>
+      </div> */}
     </div>
   )
-}
-
-BlogList.displayName = 'Blog'
-BlogList.propTypes = {
-  cancelButton: PropTypes.string.isRequired
 }
 
 export default BlogList

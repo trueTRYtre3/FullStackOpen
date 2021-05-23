@@ -1,52 +1,25 @@
 import React from 'react'
 
-const Blog = ({ children }) => {
-  // const [view, changeView] = useState('view')
-
-  // const display = { display: view === 'view' ? 'none' : '' }
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
-  // const newDisplay = () => {
-  //   view === 'view' ? changeView('hide') : changeView('view')
-  // }
-
-  // const handleLikes = () => {
-  //   try {
-  //     const newBlog = {
-  //       ...blog,
-  //       likes: blog.likes + 1
-  //     }
-  //     updateBlogs(blog.id, newBlog)
-  //   } catch (exception) {
-  //     console.log(exception)
-  //   }
-  // }
-
-  // const handleDelete = () => {
-  //   if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-  //     deleteBlogs(blog)
-  //   }
-  // }
-
-  return (
-    <div style={blogStyle} className='blog'>
-      {children }
-      {/* <span>{blog.title} {blog.author} </span><button onClick={newDisplay} style={{ borderRadius: 4 }}>{view}</button>
-      <div style={display} className='extraDetails'>
+const Blog = ({ blog }) => {
+  console.log('blog2',blog)
+  if (blog) {
+    return (
+      <div>
+        <h2>{blog.title} {blog.author}</h2>
         <p>{blog.url}</p>
-						likes {blog.likes} <button style={{ borderRadius: 4 }} onClick={handleLikes} id='like-button'>like</button>
-        <p>{blog.user !== undefined && blog.user.name}</p>
-        <button onClick={handleDelete}>remove</button>
-      </div> */}
-    </div>
+        <p>{blog.likes}</p>
+        {blog.user && <p>added by {blog.user.name}</p>}
+        <br />
+        <h3>comments</h3>
+        <form>
+          <input />
+          <button>add comment</button>
+        </form>
+      </div>
+    )
+  }
+  return (
+    <div></div>
   )
 }
 

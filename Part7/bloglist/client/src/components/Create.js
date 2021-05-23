@@ -10,7 +10,8 @@ const Create = () => {
   const [creation, changeCreation] = useState(false)
   const dispatch = useDispatch()
 
-  const showCreation = { display: creation ? '' : 'none' }
+  const creationButton = { display: creation ? 'none' : '' }
+  const creationForm = { display: creation ? '' : 'none' }
 
   const resetState = () => {
     setTitle('')
@@ -39,9 +40,9 @@ const Create = () => {
     <div>
       <button
         onClick={() => changeCreation(!creation)}
-        style={showCreation}>
+        style={creationButton}>
       create blog</button>
-      <div style={showCreation}>
+      <div style={creationForm}>
         <h2>Create New Blog</h2>
         <form onSubmit={handleSubmit}>
           <div>
