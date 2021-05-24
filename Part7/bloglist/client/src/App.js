@@ -37,7 +37,7 @@ const App = () => {
       <Switch>
         <Route path='/' exact component={BlogPage} />
         <Route path='/blogs/:id'>
-          <Blog blog={blog} />
+          {blog && <Blog blog={blog} />}
         </Route>
       </Switch>
     </div>
