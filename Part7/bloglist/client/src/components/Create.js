@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { createNotification } from '../reducers/notificationReducer'
+import { useField } from '../hooks/custom'
 
 const Create = () => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  // const [title, setTitle] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [url, setUrl] = useState('')
+  const title = useField('text')
+  const author = useField('text')
+  const url = useField('text')
   const [creation, changeCreation] = useState(false)
   const dispatch = useDispatch()
 
@@ -14,9 +18,10 @@ const Create = () => {
   const creationForm = { display: creation ? '' : 'none' }
 
   const resetState = () => {
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    [title,author,url].forEach(n => n.reset())
+    // setTitle('')
+    // setAuthor('')
+    // setUrl('')
   }
 
   const handleSubmit = e => {
@@ -47,26 +52,20 @@ const Create = () => {
         <form onSubmit={handleSubmit}>
           <div>
             title: <input
-              type='text'
               id='Title'
-              value={title}
-              onChange={({ target }) => setTitle(target.value)}
+              {...title.main}
             />
           </div>
           <div>
             author: <input
-              type='text'
               id='Author'
-              value={author}
-              onChange={({ target }) => setAuthor(target.value)}
+              {...author.main}
             />
           </div>
           <div>
             url: <input
-              type='text'
               id='Url'
-              value={url}
-              onChange={({ target }) => setUrl(target.value)}
+              {...url.main}
             />
           </div>
           <button id='creation' type='submit'>Create</button>

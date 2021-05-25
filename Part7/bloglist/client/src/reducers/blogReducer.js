@@ -30,6 +30,16 @@ export const updateBlog = (id, newObject) => {
   }
 }
 
+export const commentBlog = (id, comment) => {
+  return async dispatch => {
+    const newComment = await blogService.addComment(id, { comment })
+    dispatch({
+      type: 'COMMENT',
+      data: newComment
+    })
+  }
+}
+
 export const removeBlog = id => {
   return async dispatch => {
     await blogService.deleteBlog(id)
@@ -46,6 +56,7 @@ const reducer = (state = [], action) => {
     return action.data
   case 'CREATE':
   case 'UPDATE':
+  case 'COMMENT':
     for (const n of state) {
       if (n.user && (action.data.user === n.user.id)) {
         action.data.user = n.user

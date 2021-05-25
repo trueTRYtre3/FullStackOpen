@@ -1,17 +1,28 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { updateBlog } from '../reducers/blogReducer'
+import { updateBlog, commentBlog } from '../reducers/blogReducer'
+import { useField } from '../hooks/custom'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
+  const comment = useField('text')
   const newURL = blog.url.includes('https://') ? blog.url : `https://${blog.url}`
-  console.log('blog2',blog)
   const updateLike = () => {
     const newBlog = {
       ...blog,
       likes: blog.likes + 1
     }
     dispatch(updateBlog(blog.id, newBlog))
+  }
+
+  const addComment = e => {
+    e.preventDefault()
+    try {
+      dispatch(commentBlog(blog.id, comment.main.value))
+      comment.reset()
+    } catch(except) {
+      console.log(except)
+    }
   }
 
   return (
@@ -24,9 +35,9 @@ const Blog = ({ blog }) => {
       {blog.user && <p>added by {blog.user.name}</p>}
       <br />
       <h3>comments</h3>
-      <form>
-        <input />
-        <button>add comment</button>
+      <form onSubmit={addComment}>
+        <input {...comment.main} />
+        <button type='submit'>create comment</button>
       </form>
     </div>
   )
