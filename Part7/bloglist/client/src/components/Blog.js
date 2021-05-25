@@ -39,6 +39,12 @@ const Blog = ({ blog }) => {
         <input {...comment.main} />
         <button type='submit'>create comment</button>
       </form>
+      <div>
+        <ul>
+          {blog.comments.map((comment, i) =>
+            <li key={i}>{comment}</li>)}
+        </ul>
+      </div>
     </div>
   )
 }
