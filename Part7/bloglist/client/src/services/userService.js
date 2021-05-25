@@ -2,13 +2,13 @@ import axios from 'axios'
 const baseURL = '/api/users'
 
 const getAll = async () => {
-  const request = axios.get(baseURL)
-  console.log(request)
+  const request = await axios.get(baseURL)
+  console.log(request.data)
   return request.data
 }
 
 const createUser = async newObject => {
-  const request = axios.post(baseURL,newObject)
+  const request = await axios.post(baseURL,newObject)
   return request.data
 }
 
