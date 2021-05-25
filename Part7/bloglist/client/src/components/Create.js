@@ -5,9 +5,6 @@ import { createNotification } from '../reducers/notificationReducer'
 import { useField } from '../hooks/custom'
 
 const Create = () => {
-  // const [title, setTitle] = useState('')
-  // const [author, setAuthor] = useState('')
-  // const [url, setUrl] = useState('')
   const title = useField('text')
   const author = useField('text')
   const url = useField('text')
@@ -19,16 +16,17 @@ const Create = () => {
 
   const resetState = () => {
     [title,author,url].forEach(n => n.reset())
-    // setTitle('')
-    // setAuthor('')
-    // setUrl('')
   }
 
   const handleSubmit = e => {
     e.preventDefault()
     try {
-      dispatch(createBlog({ title, author, url }))
-      dispatch(createNotification(`a new blog ${title} by ${author} added`))
+      dispatch(createBlog({
+        title: title.main.value,
+        author: author.main.value,
+        url: url.main.value
+      }))
+      dispatch(createNotification(`a new blog ${title.main.value} by ${author.main.value} added`))
       resetState()
       changeCreation(!creation)
     } catch (error) {
