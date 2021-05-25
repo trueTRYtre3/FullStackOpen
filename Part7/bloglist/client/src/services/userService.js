@@ -3,6 +3,7 @@ const baseURL = '/api/users'
 
 const getAll = async () => {
   const request = axios.get(baseURL)
+  console.log(request)
   return request.data
 }
 

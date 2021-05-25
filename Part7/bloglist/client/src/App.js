@@ -6,6 +6,7 @@ import { initialUsers } from './reducers/userReducer'
 import { isLogged } from './reducers/loginReducer'
 import BlogPage from './components/BlogPage'
 import Blog from './components/Blog'
+import User from './components/User'
 
 const App = () => {
   const blogs = useSelector(state => state.blogs)
@@ -42,6 +43,7 @@ const App = () => {
         <Route path='/blogs/:id'>
           {blog && <Blog blog={blog} />}
         </Route>
+        <Route path='/users' component={User} />
       </Switch>
     </div>
   )

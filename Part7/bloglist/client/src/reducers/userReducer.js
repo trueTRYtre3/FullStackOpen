@@ -4,7 +4,7 @@ export const initialUsers = () => {
   return async dispatch => {
     const users = await userService.getAll()
     dispatch({
-      type: 'INIT_USERS',
+      type: 'INIT_USER',
       data: users
     })
   }
@@ -20,9 +20,9 @@ export const createUser = (newUser) => {
   }
 }
 
-const reducer = (state=[], action) => {
+const reducer = (state = [], action) => {
   switch(action.type) {
-  case 'INIT_USERS':
+  case 'INIT_USER':
     return action.data
   case 'CREATE_USER':
     return state.concat(action.data)
