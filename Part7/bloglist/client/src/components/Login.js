@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createNotification } from '../reducers/notificationReducer'
 import { handleLogin } from '../reducers/loginReducer'
 import login from '../services/login'
+import { useField } from '../hooks/custom'
 
 const Login = () => {
-  const [username, changeUsername] = useState('')
-  const [password, changePassword] = useState('')
+  const username = useField('text')
+  const password = useField('password')
   const dispatch = useDispatch()
   const notifiction = useSelector(state => state.notification)
 
   const style = { display: notifiction === '' ? 'none' : '' }
 
+  const resetState = () =>
+    [username,password].forEach(n => n.reset())
+
   const loginUser = async e => {
     e.preventDefault()
     try {
-      const newUser = await login({ username, password })
+      const newUser = await login({
+        username: username.main.value,
+        password: password.main.value
+      })
       dispatch(handleLogin(newUser))
-      changeUsername('')
-      changePassword('')
+      resetState()
     } catch(exceptions) {
       console.log(exceptions)
       dispatch(createNotification('wrong username or password'))
@@ -35,19 +41,15 @@ const Login = () => {
         <div>
           <><strong>username: </strong></>
           <input
-            type='text'
-            value={username}
             id="Username"
-            onChange={({ target }) => changeUsername(target.value)}
+            {...username.main}
           />
         </div>
         <div>
           <strong>password: </strong>
           <input
-            type="password"
-            value={password}
             id="Password"
-            onChange={({ target }) => changePassword(target.value)}
+            {...password.main}
           />
         </div>
         <button type="submit">Submit</button>

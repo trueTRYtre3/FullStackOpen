@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import { initialBlog } from './reducers/blogReducer'
+import { initialUsers } from './reducers/userReducer'
 import { isLogged } from './reducers/loginReducer'
 import BlogPage from './components/BlogPage'
 import Blog from './components/Blog'
 
-
-
 const App = () => {
   const blogs = useSelector(state => state.blogs)
   const dispatch = useDispatch()
-  console.log('blogs', blogs)
+  // console.log('blogs', blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -23,6 +22,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initialBlog())
+  }, [])
+
+  useEffect(() => {
+    dispatch(initialUsers())
   }, [])
 
   const match = useRouteMatch('/blogs/:id')

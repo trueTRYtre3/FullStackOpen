@@ -18,7 +18,6 @@ const create = async newObject => {
   }
   console.log(newObject)
   const response = await axios.post(baseURL, newObject, config)
-  console.log(response)
   return response.data
 }
 
