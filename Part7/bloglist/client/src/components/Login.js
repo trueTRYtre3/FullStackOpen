@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { createNotification } from '../reducers/notificationReducer'
 import { handleLogin } from '../reducers/loginReducer'
 import login from '../services/login'
@@ -10,6 +11,7 @@ const Login = () => {
   const password = useField('password')
   const dispatch = useDispatch()
   const notifiction = useSelector(state => state.notification)
+  const history = useHistory()
 
   const style = { display: notifiction === '' ? 'none' : '' }
 
@@ -25,6 +27,7 @@ const Login = () => {
       })
       dispatch(handleLogin(newUser))
       resetState()
+      history.push('/')
     } catch(exceptions) {
       console.log(exceptions)
       dispatch(createNotification('wrong username or password'))
