@@ -1,10 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { updateBlog, commentBlog } from '../reducers/blogReducer'
+import { useHistory } from 'react-router-dom'
+import { updateBlog, commentBlog, removeBlog } from '../reducers/blogReducer'
+import { createNotification } from '../reducers/notificationReducer'
 import { useField } from '../hooks/custom'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
+
   const comment = useField('text')
   const newURL = blog.url.includes('https://') ? blog.url : `https://${blog.url}`
   const updateLike = () => {
@@ -25,6 +29,18 @@ const Blog = ({ blog }) => {
     }
   }
 
+  const handleDelete = () => {
+    try {
+      if (window.confirm(`Remove ${blog.title} by ${blog.author}?`)) {
+        dispatch(removeBlog(blog.id))
+        dispatch(createNotification(`${blog.title} by ${blog.author} was deleted`))
+        history.push('/')
+      }
+    } catch(exception) {
+      console.log(exception)
+    }
+  }
+
   return (
     <div>
       <h2>{blog.title} {blog.author}</h2>
@@ -33,6 +49,7 @@ const Blog = ({ blog }) => {
         {blog.likes} likes <button onClick={updateLike}>like</button>
       </p>
       {blog.user && <p>added by {blog.user.name}</p>}
+      <button onClick={handleDelete}>delete</button>
       <br />
       <h3>comments</h3>
       <form onSubmit={addComment}>
