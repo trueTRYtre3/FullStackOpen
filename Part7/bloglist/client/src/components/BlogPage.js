@@ -7,13 +7,10 @@ const BlogPage = () => {
   const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes - a.likes))
   const login = useSelector(state => state.login)
   const notification = useSelector(state => state.notification)
-  const style = { display: notification === ''  ? 'none' : '' }
 
   return (
     <div>
-      <div style={style}>
-        <h3 className='message'>{notification}</h3>
-      </div>
+      {notification && <h3 className='message'>{notification}</h3>}
       {login && <Create />}
       <br />
       {blogs.map(blog =>
