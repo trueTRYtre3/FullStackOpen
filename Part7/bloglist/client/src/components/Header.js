@@ -25,13 +25,17 @@ const Header = () => {
         <Nav>
           {login
             ? (<>
-              <Navbar.Text>
-                logged in
+              <Navbar.Text style={{ color: 'white' }}>
+                {login.name} logged in
               </Navbar.Text>
-              <Button onClick={() => dispatch(handleLogout())}>logout</Button>
+              <Button
+                style={{ marginLeft: 15 }}
+                variant="outline-info"
+                onClick={() => dispatch(handleLogout())}
+              >logout</Button>
             </>)
             : (<>
-              <Nav.Link as={Link} to='/login'>
+              <Nav.Link as={Link} to='/login' >
                 Login
               </Nav.Link>
               <Nav.Link href='#'>Create Account</Nav.Link>
