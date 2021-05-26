@@ -38,7 +38,7 @@ const App = () => {
     : null
 
   return (
-    <div>
+    <div className='container'>
       <Header />
       <h1>Blog App</h1>
       <Switch>

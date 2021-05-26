@@ -5,6 +5,7 @@ import BlogList from './BlogList'
 
 const BlogPage = () => {
   const blogs = useSelector(state => state.blogs.sort((a,b) => b.likes - a.likes))
+  const login = useSelector(state => state.login)
   const notification = useSelector(state => state.notification)
   const style = { display: notification === ''  ? 'none' : '' }
 
@@ -13,7 +14,7 @@ const BlogPage = () => {
       <div style={style}>
         <h3 className='message'>{notification}</h3>
       </div>
-      <Create />
+      {login && <Create />}
       <br />
       {blogs.map(blog =>
         <BlogList key={blog.id}>

@@ -1,30 +1,45 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Nav, Navbar, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { handleLogout } from '../reducers/loginReducer'
 
 const Header = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
   const login = useSelector(state => state.login)
-
-  // const handleLogin = () => {
-  //   return (
-  //     login
-  //     ? {{login.name} logged in <button onClick={() => dispatch(handleLogout())}>logout</button>}
-  //     : <button onClick={() => history.push('/login')}>login</button>
-  //   )
-  // }
+  console.log('login', login)
 
   return (
-    <div>
-      <Link to='/'>blogs</Link>
-      <Link to='/users'>users</Link>
-      {login
-        ? <p>{login.name} logged in <button onClick={() => dispatch(handleLogout())}>logout</button></p>
-        : <button onClick={() => history.push('/login')}>login</button>
-      }
-    </div>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar.Brand>Blog Application</Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to='/'>
+            Blogs
+          </Nav.Link>
+          <Nav.Link as={Link} to='/users'>
+            Users
+          </Nav.Link>
+        </Nav>
+        <Nav>
+          {login
+            ? (<>
+              <Navbar.Text>
+                logged in
+              </Navbar.Text>
+              <Button onClick={() => dispatch(handleLogout())}>logout</Button>
+            </>)
+            : (<>
+              <Nav.Link as={Link} to='/login'>
+                Login
+              </Nav.Link>
+              <Nav.Link href='#'>Create Account</Nav.Link>
+            </>)
+          }
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 }
 
