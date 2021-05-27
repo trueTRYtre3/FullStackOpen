@@ -38,19 +38,20 @@ const App = () => {
     : null
 
   return (
-    <div className='container'>
+    <div className='text-center'>
       <Header />
-      {/* <h1>Blog App</h1> */}
-      <br />
-      <Switch>
-        <Route path='/' exact component={BlogPage} />
-        <Route path='/login' component={Login} />
-        <Route path='/blogs/:id'>
-          {blog && <Blog blog={blog} />}
-        </Route>
-        <Route path='/users' exact component={Users} />
-        <Route path='/users/:id' component={UserPage} />
-      </Switch>
+      <div className='container'>
+        <br />
+        <Switch>
+          <Route path='/' exact component={BlogPage} />
+          <Route path='/login' component={Login} />
+          <Route path='/blogs/:id'>
+            {blog && <Blog blog={blog} />}
+          </Route>
+          <Route path='/users' exact component={Users} />
+          <Route path='/users/:id' component={UserPage} />
+        </Switch>
+      </div>
     </div>
   )
 }

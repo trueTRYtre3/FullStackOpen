@@ -10,6 +10,7 @@ const BlogPage = () => {
 
   return (
     <div>
+      <h2>Blogs</h2>
       {notification && <h3 className='message'>{notification}</h3>}
       {login && <Create />}
       <br />

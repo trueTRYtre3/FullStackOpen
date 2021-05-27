@@ -47,7 +47,7 @@ const Login = () => {
   }
 
   return (
-    <div className='text-center'>
+    <div>
       <h2>Login to Application</h2>
       <Alert variant='danger' style={style.show}>
         <h4>{notifiction}</h4>
@@ -67,29 +67,6 @@ const Login = () => {
         </Button>
       </Form>
     </div>
-    // <div>
-    //   <h2>Login to Application</h2>
-    //   <div style={style}>
-    //     <h3 className='errorMessage'>{notifiction}</h3>
-    //   </div>
-    //   <form onSubmit={loginUser}>
-    //     <div>
-    //       <><strong>username: </strong></>
-    //       <input
-    //         id="Username"
-    //         {...username.main}
-    //       />
-    //     </div>
-    //     <div>
-    //       <strong>password: </strong>
-    //       <input
-    //         id="Password"
-    //         {...password.main}
-    //       />
-    //     </div>
-    //     <button type="submit">Submit</button>
-    //   </form>
-    // </div>
   )
 }
 
