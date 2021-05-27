@@ -18,7 +18,8 @@ const UserPage = () => {
   return (
     <div>
       <h2>{user.name}</h2>
-      <Table responsive>
+      <br />
+      <Table responsive style={{ width: '85%', margin: 'auto' }}>
         <thead>
           <tr>
             <th>Added Blogs</th>
