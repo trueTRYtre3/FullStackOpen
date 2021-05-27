@@ -22,7 +22,7 @@ const Login = () => {
     },
     form: {
       textAlign: 'center',
-      width: '80%',
+      width: '70%',
       margin: 'auto'
     }
   }
