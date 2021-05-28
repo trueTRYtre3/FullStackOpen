@@ -27,7 +27,7 @@ const Create = () => {
         author: author.main.value,
         url: url.main.value
       }))
-      dispatch(createNotification(`a new blog ${title.main.value} by ${author.main.value} added`))
+      dispatch(createNotification(`a new blog '${title.main.value}' by ${author.main.value} added`))
       resetState()
       changeCreation(!creation)
     } catch (error) {

@@ -12,7 +12,11 @@ const BlogPage = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      {notification && <Alert variant='success'>{notification}</Alert>}
+      {notification &&
+        <Alert variant='success' style={{ margin: 'auto', width: '50%', marginBottom: 8 }}>
+          {notification}
+        </Alert>
+      }
       {login && <Create />}
       <br />
       {blogs.map(blog =>

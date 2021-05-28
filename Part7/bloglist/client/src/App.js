@@ -14,7 +14,6 @@ import Header from './components/Header'
 const App = () => {
   const blogs = useSelector(state => state.blogs)
   const dispatch = useDispatch()
-  // console.log('blogs', blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')

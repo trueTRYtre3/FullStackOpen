@@ -20,7 +20,6 @@ const Blog = ({ blog }) => {
     }
     dispatch(updateBlog(blog.id, newBlog))
   }
-  console.log('blog', blog)
 
   const addComment = e => {
     e.preventDefault()
@@ -38,7 +37,7 @@ const Blog = ({ blog }) => {
     try {
       if (window.confirm(`Remove ${blog.title} by ${blog.author}?`)) {
         dispatch(removeBlog(blog.id))
-        dispatch(createNotification(`${blog.title} by ${blog.author} was deleted`))
+        dispatch(createNotification(`'${blog.title}' by ${blog.author} was deleted`))
         history.push('/')
       }
     } catch(exception) {

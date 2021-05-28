@@ -7,7 +7,6 @@ import { handleLogout } from '../reducers/loginReducer'
 const Header = () => {
   const dispatch = useDispatch()
   const login = useSelector(state => state.login)
-  console.log('login', login)
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
