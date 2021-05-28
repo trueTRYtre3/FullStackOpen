@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
 import { createNotification } from '../reducers/notificationReducer'
 import { handleLogin } from '../reducers/loginReducer'
-import login from '../services/login'
+import login from '../services/loginService'
 import { useField } from '../hooks/custom'
 
 const Login = () => {

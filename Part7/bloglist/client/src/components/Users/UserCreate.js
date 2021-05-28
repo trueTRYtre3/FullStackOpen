@@ -5,7 +5,9 @@ import { Form, Button, Alert } from 'react-bootstrap'
 import { useField } from '../../hooks/custom'
 import { createUser } from '../../reducers/userReducer'
 import { createNotification } from '../../reducers/notificationReducer'
+import { handleLogin } from '../../reducers/loginReducer'
 import userService from '../../services/userService'
+import login from '../../services/loginService'
 
 const UserCreate = () => {
   const dispatch = useDispatch()
@@ -33,6 +35,11 @@ const UserCreate = () => {
         })
         console.log('request', request)
         dispatch(createUser(request))
+        const newUser = await login({
+          username: username.main.value,
+          password: password.main.value
+        })
+        dispatch(handleLogin(newUser))
         resetState()
         history.push('/')
       } catch(exception) {
