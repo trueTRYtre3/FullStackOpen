@@ -2,7 +2,6 @@ import blogService from '../services/blogService'
 
 export const handleLogin = loginObj => {
   return async dispatch => {
-    console.log(loginObj)
     blogService.setToken(loginObj.token)
     window.localStorage.setItem(
       'loggedBlogUser', JSON.stringify(loginObj)

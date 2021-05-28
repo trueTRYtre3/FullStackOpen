@@ -40,8 +40,8 @@ const App = () => {
   return (
     <div className='text-center'>
       <Header />
+      <br />
       <div className='container'>
-        <br />
         <Switch>
           <Route path='/' exact component={BlogPage} />
           <Route path='/login' component={Login} />
