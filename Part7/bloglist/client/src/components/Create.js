@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Button, Form, Card, Col, Row } from 'react-bootstrap'
 import { createBlog } from '../reducers/blogReducer'
 import { createNotification } from '../reducers/notificationReducer'
 import { useField } from '../hooks/custom'
@@ -41,34 +42,52 @@ const Create = () => {
 
   return (
     <div>
-      <button
+      <Button
         onClick={() => changeCreation(!creation)}
         style={creationButton}>
-      create blog</button>
+      create blog</Button>
       <div style={creationForm}>
-        <h2>Create New Blog</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            title: <input
-              id='Title'
-              {...title.main}
-            />
-          </div>
-          <div>
-            author: <input
-              id='Author'
-              {...author.main}
-            />
-          </div>
-          <div>
-            url: <input
-              id='Url'
-              {...url.main}
-            />
-          </div>
-          <button id='creation' type='submit'>Create</button>
-        </form>
-        <button onClick={cancelButton}>cancel</button>
+        <Card>
+          <Card.Body>
+            <Card.Title>Create New Blog</Card.Title>
+            <br />
+            <Form onSubmit={handleSubmit}>
+              <Form.Group as={Row} style={{ justifyContent: 'center' }}>
+                <Form.Label column sm={1}>
+                  Title:
+                </Form.Label>
+                <Col sm={5}>
+                  <Form.Control id='Title' {...title.main} />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} style={{ justifyContent: 'center' }}>
+                <Form.Label column sm={1}>
+                  Author:
+                </Form.Label>
+                <Col sm={5}>
+                  <Form.Control id='Author' {...author.main} />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} style={{ justifyContent: 'center' }}>
+                <Form.Label column sm={1}>
+                  URL:
+                </Form.Label>
+                <Col sm={5}>
+                  <Form.Control id='Url' {...url.main} />
+                </Col>
+              </Form.Group>
+              <Row style={{ justifyContent: 'center' }}>
+                <Col xs='auto'>
+                  <Button id='creation' type='submit'>Create</Button>
+                </Col>
+                <Col xs='auto'>
+                  <Button variant='outline-dark' type='button' onClick={cancelButton}>Cancel</Button>
+                </Col>
+              </Row>
+            </Form>
+            {/* <Button variant='outline-dark' onClick={cancelButton}>Cancel</Button> */}
+          </Card.Body>
+        </Card>
       </div>
     </div>
   )

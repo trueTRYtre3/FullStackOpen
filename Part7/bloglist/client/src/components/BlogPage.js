@@ -19,6 +19,7 @@ const BlogPage = () => {
           {blog}
         </BlogList>
       )}
+      <br />
     </div>
   )
 }
