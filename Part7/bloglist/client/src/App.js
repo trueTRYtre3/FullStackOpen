@@ -10,6 +10,7 @@ import Users from './components/Users/Users'
 import UserPage from './components/Users/UserPage'
 import Login from './components/Login'
 import Header from './components/Header'
+import UserCreate from './components/Users/UserCreate'
 
 const App = () => {
   const blogs = useSelector(state => state.blogs)
@@ -49,6 +50,7 @@ const App = () => {
           </Route>
           <Route path='/users' exact component={Users} />
           <Route path='/users/:id' component={UserPage} />
+          <Route path='/account' component={UserCreate} />
         </Switch>
       </div>
     </div>
