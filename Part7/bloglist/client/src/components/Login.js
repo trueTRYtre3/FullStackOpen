@@ -54,11 +54,11 @@ const Login = () => {
       </Alert>
       <br />
       <Form onSubmit={loginUser}>
-        <Form.Group className="md-3" controlId="formBasicUsername">
+        <Form.Group className="md-3">
           <Form.Label><strong>Username</strong></Form.Label>
           <Form.Control {...username.main} placeholder="Username" id='Username' style={style.form} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label><strong>Password</strong></Form.Label>
           <Form.Control {...password.main} placeholder="Password" id='Password' style={style.form} />
         </Form.Group>

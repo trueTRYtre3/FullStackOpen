@@ -22,7 +22,7 @@ const App = () => {
       const tokenUser = JSON.parse(loggedUserJSON)
       dispatch(isLogged(tokenUser))
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(initialBlog())

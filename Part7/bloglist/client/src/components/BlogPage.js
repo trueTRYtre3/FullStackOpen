@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Alert } from 'react-bootstrap'
 import Create from './Create'
 import BlogList from './BlogList'
 
@@ -11,7 +12,7 @@ const BlogPage = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      {notification && <h3 className='message'>{notification}</h3>}
+      {notification && <Alert variant='success'>{notification}</Alert>}
       {login && <Create />}
       <br />
       {blogs.map(blog =>

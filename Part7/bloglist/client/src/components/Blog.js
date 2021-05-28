@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Card, Button, ListGroup, Form, Col } from 'react-bootstrap'
 import { updateBlog, commentBlog, removeBlog } from '../reducers/blogReducer'
@@ -8,6 +8,7 @@ import { useField } from '../hooks/custom'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
+  const login = useSelector(state => state.login)
   const history = useHistory()
 
   const comment = useField('text')
@@ -19,6 +20,7 @@ const Blog = ({ blog }) => {
     }
     dispatch(updateBlog(blog.id, newBlog))
   }
+  console.log('blog', blog)
 
   const addComment = e => {
     e.preventDefault()
@@ -44,17 +46,21 @@ const Blog = ({ blog }) => {
     }
   }
 
+  const DeleteButton = () => {
+    if (blog.user && (login.name === blog.user.name) && (login.username === blog.user.username)) {
+      return <Button variant='danger' onClick={handleDelete}>delete</Button>
+    }
+  }
+
   return (
     <div>
       <Card >
         <Card.Body>
           <Card.Title>{blog.title} by {blog.author}</Card.Title>
-          <Card.Text>
-            <p><a href={newURL}>{blog.url}</a></p>
-            {blog.likes} likes <Button onClick={updateLike}>like</Button>
-            {blog.user && <p>added by {blog.user.name}</p>}
-          </Card.Text>
-          <Button variant='danger' onClick={handleDelete}>delete</Button>
+          <Card.Text><a href={newURL}>{blog.url}</a></Card.Text>
+          <Card.Text>{blog.likes} likes <Button onClick={updateLike}>like</Button></Card.Text>
+          {blog.user && <Card.Text>added by {blog.user.name}</Card.Text>}
+          {login && DeleteButton()}
         </Card.Body>
       </Card>
       <br />
