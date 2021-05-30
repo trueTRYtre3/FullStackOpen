@@ -5,7 +5,6 @@ import { Card } from 'react-bootstrap'
 const BlogList = ({ children }) => {
 
   return (
-    // <div style={blogStyle} className='blog'>
     <Card className='blog' style={{ width: '60%', margin: 'auto' }}>
       <Card.Body>
         <Link to={`/blogs/${children.id}`}>
@@ -13,7 +12,6 @@ const BlogList = ({ children }) => {
         </Link>
       </Card.Body>
     </Card>
-    // </div>
   )
 }
 
