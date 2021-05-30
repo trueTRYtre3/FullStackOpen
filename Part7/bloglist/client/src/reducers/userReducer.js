@@ -10,19 +10,13 @@ export const initialUsers = () => {
   }
 }
 
-export const createUser = (newUser) => {
-  return async dispatch => {
-    // const user = await userService.create(newUser)
-    // dispatch({
-    //   type: 'CREATE_USER',
-    //   data: user
-    // })
-    dispatch({
-      type: 'CREATE_USER',
-      data: newUser
-    })
-  }
+export const createUser = newUser => dispatch => {
+  dispatch({
+    type: 'CREATE_USER',
+    data: newUser
+  })
 }
+
 
 const reducer = (state = [], action) => {
   switch(action.type) {
