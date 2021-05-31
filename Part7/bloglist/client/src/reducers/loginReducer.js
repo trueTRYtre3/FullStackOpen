@@ -6,7 +6,7 @@ export const handleLogin = loginObj => {
     window.localStorage.setItem(
       'loggedBlogUser', JSON.stringify(loginObj)
     )
-    dispatch({
+    await dispatch({
       type: 'LOGIN',
       data: loginObj
     })
@@ -16,7 +16,7 @@ export const handleLogin = loginObj => {
 export const isLogged = (userObj) => {
   return async dispatch => {
     blogService.setToken(userObj)
-    dispatch({
+    await dispatch({
       type: 'STAY',
       data: userObj
     })
@@ -26,7 +26,7 @@ export const isLogged = (userObj) => {
 export const handleLogout = () => {
   return async dispatch => {
     window.localStorage.removeItem('loggedBlogUser')
-    dispatch({
+    await dispatch({
       type: 'LOGOUT',
       data: null
     })
