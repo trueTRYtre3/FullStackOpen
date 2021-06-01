@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 
 const Users = () => {
-  const users = useSelector(state => state.user)
-  console.log(users)
+  const users = useSelector(state => state.user.sort((a,b) => b.blogs.length - a.blogs.length))
   return (
     <div>
       <h2>Users</h2>

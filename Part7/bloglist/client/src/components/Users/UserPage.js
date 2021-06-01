@@ -6,11 +6,10 @@ import { Table } from 'react-bootstrap'
 const UserPage = () => {
   const users = useSelector(state => state.user)
   const match = useRouteMatch('/users/:id')
-  console.log('match', match)
   const user = match
     ? users.find(n => n.id === match.params.id)
     : null
-  console.log('user', user)
+
   if (!user) {
     return null
   }

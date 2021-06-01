@@ -12,9 +12,9 @@ const BlogPage = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      {notification &&
-        <Alert variant='success' style={{ margin: 'auto', width: '50%', marginBottom: 8 }}>
-          {notification}
+      {notification.text &&
+        <Alert variant={notification.type} style={{ margin: 'auto', width: '50%', marginBottom: 8 }}>
+          {notification.text}
         </Alert>
       }
       {login && <Create />}

@@ -9,13 +9,13 @@ export const createNotification = data => {
     handleTime = setTimeout(() => {
       dispatch({
         type: 'REMOVE',
-        data: ''
+        data: { type: null, text: null }
       })
     }, 5000)
   }
 }
 
-const reducer = (state = '', action) => {
+const reducer = (state = { type: null, text: null }, action) => {
   switch (action.type) {
   case 'NEW':
   case 'REMOVE':
