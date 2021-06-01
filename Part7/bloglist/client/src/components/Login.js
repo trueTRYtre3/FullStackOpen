@@ -11,12 +11,12 @@ const Login = () => {
   const username = useField('text')
   const password = useField('password')
   const dispatch = useDispatch()
-  const notifiction = useSelector(state => state.notification)
+  const notification = useSelector(state => state.notification)
   const history = useHistory()
 
   const style = {
     show: {
-      display: notifiction === '' ? 'none' : '',
+      display: notification.text === null ? 'none' : '',
       width: '50%',
       margin: 'auto'
     },
@@ -42,15 +42,18 @@ const Login = () => {
       history.push('/')
     } catch(exceptions) {
       console.log(exceptions)
-      dispatch(createNotification('wrong username or password'))
+      dispatch(createNotification({
+        type: 'danger',
+        text: 'wrong username or password'
+      }))
     }
   }
 
   return (
     <div>
       <h2>Login to Application</h2>
-      <Alert variant='danger' style={style.show}>
-        <h4>{notifiction}</h4>
+      <Alert variant={notification.type} style={style.show}>
+        <h4>{notification.text}</h4>
       </Alert>
       <br />
       <Form onSubmit={loginUser}>
