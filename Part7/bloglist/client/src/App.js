@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
 import { initialBlog } from './reducers/blogReducer'
 import { initialUsers } from './reducers/userReducer'
 import { isLogged } from './reducers/loginReducer'
@@ -13,30 +13,13 @@ import Header from './components/Header'
 import UserCreate from './components/Users/UserCreate'
 
 const App = () => {
-  const blogs = useSelector(state => state.blogs)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
-    if (loggedUserJSON) {
-      const tokenUser = JSON.parse(loggedUserJSON)
-      dispatch(isLogged(tokenUser))
-    }
-  }, [dispatch])
-
-  useEffect(() => {
+    dispatch(isLogged())
     dispatch(initialBlog())
-  }, [])
-
-  useEffect(() => {
     dispatch(initialUsers())
   }, [])
-
-  const match = useRouteMatch('/blogs/:id')
-  const blog = match
-    ? blogs.find(n => n.id === match.params.id)
-    : null
-
   return (
     <div className='text-center'>
       <Header />
@@ -45,9 +28,7 @@ const App = () => {
         <Switch>
           <Route path='/' exact component={BlogPage} />
           <Route path='/login' component={Login} />
-          <Route path='/blogs/:id'>
-            {blog && <Blog blog={blog} />}
-          </Route>
+          <Route path='/blogs/:id' component={Blog} />
           <Route path='/users' exact component={Users} />
           <Route path='/users/:id' component={UserPage} />
           <Route path='/account' component={UserCreate} />
