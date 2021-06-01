@@ -1,31 +1,49 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Card, Button, ListGroup, Form, Col } from 'react-bootstrap'
 import { updateBlog, commentBlog, removeBlog } from '../reducers/blogReducer'
-import { createNotification } from '../reducers/notificationReducer'
+import blogService from '../services/blogService'
 import { useField } from '../hooks/custom'
+import { createNotification } from '../reducers/notificationReducer'
 
-const Blog = ({ blog }) => {
+const Blog = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
   const login = useSelector(state => state.login)
-  const history = useHistory()
-
+  const blogs = useSelector(state => state.blogs)
   const comment = useField('text')
+
+  const match = useRouteMatch('/blogs/:id')
+  const blog = match
+    ? blogs.find(n => n.id === match.params.id)
+    : null
+  console.log('blog', blog)
+  console.log('login', login)
+  if (!blog) {
+    return null
+  }
   const newURL = blog.url.includes('https://') ? blog.url : `https://${blog.url}`
-  const updateLike = () => {
-    const newBlog = {
-      ...blog,
-      likes: blog.likes + 1
+
+  const updateLike = async () => {
+    try {
+      const newBlog = {
+        ...blog,
+        likes: blog.likes + 1
+      }
+      const blogUpdate = await blogService.update(blog.id, newBlog)
+      dispatch(updateBlog(blogUpdate))
+    } catch(exception) {
+      console.log(exception)
     }
-    dispatch(updateBlog(blog.id, newBlog))
   }
 
-  const addComment = e => {
+  const postComment = async e => {
     e.preventDefault()
     if (comment.main.value.length > 0) {
       try {
-        dispatch(commentBlog(blog.id, comment.main.value))
+        const newComment = await blogService.addComment(blog.id, { comment: comment.main.value })
+        dispatch(commentBlog(newComment))
         comment.reset()
       } catch(except) {
         console.log(except)
@@ -33,15 +51,18 @@ const Blog = ({ blog }) => {
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
       if (window.confirm(`Remove ${blog.title} by ${blog.author}?`)) {
-        dispatch(removeBlog(blog.id))
-        dispatch(createNotification(`'${blog.title}' by ${blog.author} was deleted`))
+        await blogService.deleteBlog(blog.id)
+        dispatch(removeBlog(blog))
         history.push('/')
       }
     } catch(exception) {
-      console.log(exception)
+      dispatch(createNotification({
+        type: 'danger',
+        text: 'Unable to delete blog'
+      }))
     }
   }
 
@@ -66,7 +87,7 @@ const Blog = ({ blog }) => {
       <Card>
         <Card.Body>
           <Card.Title>Comments</Card.Title>
-          <Form onSubmit={addComment}>
+          <Form onSubmit={postComment}>
             <Form.Row style={{ justifyContent: 'center' }}>
               <Col xs={5}>
                 <Form.Control
