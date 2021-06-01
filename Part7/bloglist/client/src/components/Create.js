@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Button, Form, Card, Col, Row } from 'react-bootstrap'
 import { createBlog } from '../reducers/blogReducer'
 import { createNotification } from '../reducers/notificationReducer'
+import blogService from '../services/blogService'
 import { useField } from '../hooks/custom'
 
 const Create = () => {
@@ -19,19 +20,22 @@ const Create = () => {
     [title,author,url].forEach(n => n.reset())
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     try {
-      dispatch(createBlog({
+      const newBlog = await blogService.create({
         title: title.main.value,
         author: author.main.value,
         url: url.main.value
-      }))
-      dispatch(createNotification(`a new blog '${title.main.value}' by ${author.main.value} added`))
+      })
+      dispatch(createBlog(newBlog))
       resetState()
       changeCreation(!creation)
     } catch (error) {
-      console.log(error)
+      dispatch(createNotification({
+        type: 'danger',
+        text: 'Failed to create blog'
+      }))
     }
   }
 
@@ -85,7 +89,6 @@ const Create = () => {
                 </Col>
               </Row>
             </Form>
-            {/* <Button variant='outline-dark' onClick={cancelButton}>Cancel</Button> */}
           </Card.Body>
         </Card>
       </div>
