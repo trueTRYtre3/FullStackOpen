@@ -6,6 +6,7 @@ import { updateBlog, commentBlog, removeBlog } from '../reducers/blogReducer'
 import blogService from '../services/blogService'
 import { useField } from '../hooks/custom'
 import { createNotification } from '../reducers/notificationReducer'
+import Delete from './Delete'
 
 const Blog = () => {
   const history = useHistory()
@@ -18,8 +19,7 @@ const Blog = () => {
   const blog = match
     ? blogs.find(n => n.id === match.params.id)
     : null
-  console.log('blog', blog)
-  console.log('login', login)
+
   if (!blog) {
     return null
   }
@@ -53,11 +53,9 @@ const Blog = () => {
 
   const handleDelete = async () => {
     try {
-      if (window.confirm(`Remove ${blog.title} by ${blog.author}?`)) {
-        await blogService.deleteBlog(blog.id)
-        dispatch(removeBlog(blog))
-        history.push('/')
-      }
+      await blogService.deleteBlog(blog.id)
+      dispatch(removeBlog(blog))
+      history.push('/')
     } catch(exception) {
       dispatch(createNotification({
         type: 'danger',
@@ -68,7 +66,9 @@ const Blog = () => {
 
   const DeleteButton = () => {
     if (blog.user && (login.name === blog.user.name) && (login.username === blog.user.username)) {
-      return <Button variant='danger' onClick={handleDelete}>delete</Button>
+      return(
+        <Delete blog={blog} handleDelete={handleDelete} />
+      )
     }
   }
 
