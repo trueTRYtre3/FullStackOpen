@@ -1,52 +1,59 @@
 import blogService from '../services/blogService'
+import { createNotification } from './notificationReducer'
+
 
 export const initialBlog = () => {
   return async dispatch => {
-    const response = await blogService.getAll()
-    dispatch({
-      type: 'INITIALIZE',
-      data: response
-    })
+    try {
+      const response = await blogService.getAll()
+      dispatch({
+        type: 'INITIALIZE',
+        data: response
+      })
+    } catch(exception) {
+      console.log(exception)
+    }
   }
 }
 
-export const createBlog = (newObject) => {
-  return async dispatch => {
-    const newBlog = await blogService.create(newObject)
-    dispatch({
-      type: 'CREATE',
-      data: newBlog
-    })
-  }
+export const createBlog = newObject => dispatch => {
+  dispatch({
+    type: 'CREATE',
+    data: newObject
+  })
+  dispatch(createNotification({
+    type: 'success',
+    text: `a new blog '${newObject.title}' by ${newObject.author} added`
+  }))
 }
 
-export const updateBlog = (id, newObject) => {
-  return async dispatch => {
-    const updatedBlog = await blogService.update(id, newObject)
-    dispatch({
-      type: 'UPDATE',
-      data: updatedBlog
-    })
-  }
+
+export const updateBlog = newObject => dispatch => {
+  dispatch({
+    type: 'UPDATE',
+    data: newObject
+  })
 }
 
-export const commentBlog = (id, comment) => {
-  return async dispatch => {
-    const newComment = await blogService.addComment(id, { comment })
-    dispatch({
-      type: 'COMMENT',
-      data: newComment
-    })
-  }
+
+export const commentBlog = (newComment) => dispatch => {
+  dispatch({
+    type: 'COMMENT',
+    data: newComment
+  })
 }
 
-export const removeBlog = id => {
-  return async dispatch => {
-    await blogService.deleteBlog(id)
+
+export const removeBlog = (blog) => {
+  return dispatch => {
     dispatch({
       type: 'DELETE',
-      data: id
+      data: blog.id
     })
+    dispatch(createNotification({
+      type: 'success',
+      text: `'${blog.title}' by ${blog.author} was deleted`
+    }))
   }
 }
 
@@ -54,9 +61,9 @@ const reducer = (state = [], action) => {
   switch (action.type) {
   case 'INITIALIZE':
     return action.data
-  case 'CREATE':
   case 'UPDATE':
   case 'COMMENT':
+  case 'CREATE':
     for (const n of state) {
       if (n.user && (action.data.user === n.user.id)) {
         action.data.user = n.user
