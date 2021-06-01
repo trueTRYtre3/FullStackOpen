@@ -13,13 +13,17 @@ export const handleLogin = loginObj => {
   }
 }
 
-export const isLogged = (userObj) => {
+export const isLogged = () => {
   return async dispatch => {
-    blogService.setToken(userObj)
-    await dispatch({
-      type: 'STAY',
-      data: userObj
-    })
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
+    if (loggedUserJSON) {
+      const tokenUser = JSON.parse(loggedUserJSON)
+      blogService.setToken(tokenUser.token)
+      await dispatch({
+        type: 'STAY',
+        data: tokenUser
+      })
+    }
   }
 }
 
