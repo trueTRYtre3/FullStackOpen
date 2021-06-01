@@ -24,7 +24,7 @@ const UserCreate = () => {
     })
   }
 
-  const validPassword = async (e) => {
+  const validAccount = async (e) => {
     e.preventDefault()
     if (password.main.value === checkPassword.main.value) {
       try {
@@ -43,22 +43,29 @@ const UserCreate = () => {
         resetState()
         history.push('/')
       } catch(exception) {
-        dispatch(createNotification('Username or Password is invalid'))
+        console.log(exception)
+        dispatch(createNotification({
+          type: 'warning',
+          text: 'Username or Password is invalid'
+        }))
       }
     } else {
-      dispatch(createNotification('Passwords do not match'))
+      dispatch(createNotification({
+        type: 'warning',
+        text: 'Passwords do not match'
+      }))
     }
   }
 
   return (
     <div>
       <h1>Create User</h1>
-      {notification &&
-      <Alert variant='warning' style={{ width: '60%', margin: 'auto' }}>
-        {notification}
+      {notification.text &&
+      <Alert variant={notification.type} style={{ width: '60%', margin: 'auto' }}>
+        {notification.text}
       </Alert>}
       <br />
-      <Form onSubmit={validPassword}>
+      <Form onSubmit={validAccount}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control id='Username' {...username.main} placeholder="Username" />
