@@ -2,11 +2,11 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Card, Button, ListGroup, Form, Col } from 'react-bootstrap'
-import { updateBlog, commentBlog, removeBlog } from '../reducers/blogReducer'
-import blogService from '../services/blogService'
-import { useField } from '../hooks/custom'
-import { createNotification } from '../reducers/notificationReducer'
-import Delete from './Delete'
+import { updateBlog, commentBlog, removeBlog } from '../../reducers/blogReducer'
+import blogService from '../../services/blogService'
+import { useField } from '../../hooks/custom'
+import { createNotification } from '../../reducers/notificationReducer'
+import Delete from '../Delete'
 
 const Blog = () => {
   const history = useHistory()
