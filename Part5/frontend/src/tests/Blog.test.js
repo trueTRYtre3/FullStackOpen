@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/react'
-import BlogList from '../components/BlogList'
+import BlogList from '../components/Blogs/BlogList'
 import Create from '../components/Create'
 
 test('renders blogs title and author', () => {

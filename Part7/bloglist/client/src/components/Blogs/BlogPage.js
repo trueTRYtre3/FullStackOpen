@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Alert } from 'react-bootstrap'
-import Create from './Create'
+import Create from '../Create'
 import BlogList from './BlogList'
 
 const BlogPage = () => {
