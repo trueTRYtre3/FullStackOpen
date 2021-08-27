@@ -100,6 +100,16 @@ const typeDefs = gql`
         allBooks(author: String, genre: String): [Book!]!
         allAuthors: [Author!]!
     }
+
+    type Mutation {
+        addBook(
+            title: String!
+            author: String!
+            published: Int!
+            born: Int
+            genres: [String!]!
+        ): Book
+    }
 `
 
 const resolvers = {
@@ -120,15 +130,18 @@ const resolvers = {
 
           return filteredBooks
         },
-      allAuthors: () => authors,
-  },
+        allAuthors: () => authors,
+    },
+    Author: {
+        bookCount: (root) => {
+            const author = books.filter(book => book.author === root.name)
+            return author.length
+        }
+    },
+    Mutation: {
+        
+    }
 
-  Author: {
-      bookCount: (root) => {
-        const author = books.filter(book => book.author === root.name)
-        return author.length
-      }
-  }
 }
 
 const server = new ApolloServer({
