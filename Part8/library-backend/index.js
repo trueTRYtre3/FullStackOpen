@@ -135,8 +135,8 @@ const resolvers = {
           filteredBooks = args.genre ? filteredBooks.filter(book => book.genres.includes(args.genre)) : filteredBooks
 
           return filteredBooks
-        },
-        allAuthors: () => authors,
+      },
+      allAuthors: () => authors,
     },
     Author: {
         bookCount: (root) => {
