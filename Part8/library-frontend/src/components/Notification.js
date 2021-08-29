@@ -1,10 +1,7 @@
 import React from 'react'
 
 const Notification = ({ errorMessage }) => {
-    if (!errorMessage) {
-        return null
-    }
-
+    console.log(errorMessage)
     return (
         <div style={{ color: 'red' }}>
             {errorMessage}

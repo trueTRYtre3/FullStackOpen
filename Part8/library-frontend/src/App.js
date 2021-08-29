@@ -12,7 +12,7 @@ const App = () => {
     setErrorMessage(error)
     setTimeout(() => {
       setErrorMessage(null)
-    }, null)
+    }, 5000)
   }
 
 
@@ -24,10 +24,11 @@ const App = () => {
         <button onClick={() => setPage('add')}>add book</button>
       </div>
 
-      <Notification errorMessage={errorMessage} />
+      {errorMessage && <Notification errorMessage={errorMessage} />}
 
       <Authors
         show={page === 'authors'}
+        setError={notification}
       />
 
       <Books
