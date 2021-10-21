@@ -1,5 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server')
 const { v4: uuidv4 } = require('uuid')
+const jwt = require('jsonwebtoken')
+
+const mongoose = require('mongoose')
 
 let authors = [
   {
