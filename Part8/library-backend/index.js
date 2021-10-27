@@ -7,7 +7,6 @@ const book = require('./models/book')
 const author = require('./models/author')
 
 let { authors, books } = require('./data/fake_data')
-const typeDefs = require('./data/fake_data')
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -18,6 +17,42 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('connected to MongoDB '))
   .catch((error) => console.log('error connecting to MongoDB:', error.message))
 
+const typeDefs = gql`
+  type Author {
+      name: String!
+      bookCount: Int
+      id: ID!
+      born: Int
+  }
+
+  type Book {
+      title: String!
+      author: Author!
+      published: Int!
+      genres: [String]
+      id: ID!
+  }
+
+  type Query {
+      bookCount: Int!
+      authorCount: Int!
+      allBooks(author: String, genre: String): [Book!]!
+      allAuthors: [Author!]!
+  }
+
+  type Mutation {
+      addBook(
+          title: String!
+          author: String!
+          published: Int!
+          genres: [String]
+      ): Book
+      editAuthor(
+          name: String!
+          born: Int!
+      ): Author
+  }
+`
 
 const resolvers = {
   Query: {
