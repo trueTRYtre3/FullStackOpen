@@ -1,5 +1,5 @@
 
-export let authors = [
+let authors = [
     {
       name: 'Robert Martin',
       id: "afa51ab0-344d-11e9-a414-719c6709cf3e",
@@ -24,8 +24,8 @@ export let authors = [
       id: "afa5b6f3-344d-11e9-a414-719c6709cf3e",
     },
   ]
-  
-export let books = [
+
+let books = [
     {
       title: 'Clean Code',
       published: 2008,
@@ -76,4 +76,3 @@ export let books = [
       genres: ['classic', 'revolution']
     },
   ]
-  
