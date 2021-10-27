@@ -1,0 +1,12 @@
+[0m2021.10.21 11:56:57 INFO  Started: Metals version 0.10.7 in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen' for client Visual Studio Code 1.61.2.[0m
+[0m2021.10.21 11:56:59 INFO  time: initialize in 1.63s[0m
+[0m2021.10.21 11:56:59 WARN  Build server is not auto-connectable.[0m
+[0m2021.10.21 11:56:59 WARN  no build tool detected in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.10.22 11:03:47 INFO  Started: Metals version 0.10.7 in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen' for client Visual Studio Code 1.61.2.[0m
+[0m2021.10.22 11:03:49 INFO  time: initialize in 1.39s[0m
+[0m2021.10.22 11:03:53 WARN  Build server is not auto-connectable.[0m
+[0m2021.10.22 11:03:53 WARN  no build tool detected in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.10.25 15:17:35 INFO  Started: Metals version 0.10.7 in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen' for client Visual Studio Code 1.61.2.[0m
+[0m2021.10.25 15:17:37 INFO  time: initialize in 1.42s[0m
+[0m2021.10.25 15:17:41 WARN  Build server is not auto-connectable.[0m
+[0m2021.10.25 15:17:41 WARN  no build tool detected in workspace 'C:\Users\kyleo\Programming-Projects\FullStackOpen'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
