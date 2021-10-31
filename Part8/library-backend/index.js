@@ -72,34 +72,16 @@ const resolvers = {
   Query: {
     bookCount: () => Book.collection.countDocuments(),
     authorCount: () => Author.collection.countDocuments(),
-    allBooks: (root, args) => {
-        if (!args.author && !args.genre) {
-            return books
-        }
-        let filteredBooks = books
+    allBooks: async (root, args) => {
+      if (!args.author && !args.genre) {
+        return await Book.find({})
+      }
 
-        //   filter for author books
-        filteredBooks = args.author 
-          ? filteredBooks.filter(book => book.author === args.author) 
-          : filteredBooks
-
-        // filter for genres
-        filteredBooks = args.genre 
-          ? filteredBooks.filter(book => book.genres.includes(args.genre)) 
-          : filteredBooks
-
-        return filteredBooks
+      const books = await Book.find( { genres: { $in: args.genre } } )
+      return books
     },
     allAuthors: async () => await Author.find({}),
     me: (root, args, context) => context.currentUser,
-  },
-  Author: {
-    bookCount: (root) => {
-      const books = Book.find( { author: { $in: root.name } } )
-      return books.length
-      // const author = books.filter(book => book.author === root.name)
-      // return author.length
-    }
   },
   Mutation: {
     addBook: async (root, args, context) => {
@@ -184,7 +166,7 @@ const server = new ApolloServer({
   resolvers,
   context: async ({ req }) => {
     const auth = req ? req.headers.authorization : null
-    if (auth && auth.toLocaleLowerCase().startsWith('bearer ')) {
+    if (auth && auth.toLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(
         auth.substring(7), process.env.SECRET
       )
