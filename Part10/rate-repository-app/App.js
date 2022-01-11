@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import RepositoryList from './src/components/RepositoryList';
+import Main from './src/components/Main';
 import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,11 +12,12 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <RepositoryList />
-    </View>
-  );
+  return <Main />;
+  // return (
+  //   <View style={styles.container}>
+  //     <RepositoryList />
+  //   </View>
+  // );
 };
 
 export default App;
