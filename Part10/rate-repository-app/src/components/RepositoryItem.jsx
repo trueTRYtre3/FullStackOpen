@@ -4,10 +4,11 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     flexContainer: {
         display: 'flex',
-        marginTop: 7,
+        paddingTop: 10,
+        paddingBottom: 15,
         paddingLeft: 10,
         paddingRight: 10,
-        marginBottom: 3,
+        backgroundColor: 'white',
     },
     flexTop: {
         display: 'flex',
