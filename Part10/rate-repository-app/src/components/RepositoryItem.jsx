@@ -4,25 +4,33 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     flexContainer: {
         display: 'flex',
-        marginTop: 4,
-        paddingLeft: 5,
-        paddingRight: 5,
+        marginTop: 7,
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginBottom: 3,
     },
     flexTop: {
         display: 'flex',
         flexDirection: 'row',
+        marginLeft: 10,
+        padding: 8,
     },
     flexTopText: {
         display: 'flex',
-        paddingBottom: 14,
+        // paddingBottom: 14,
+        width: '80%',
+        marginLeft: 14,
     },
     flexBottom: {
+        marginTop: 8,
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
     },
     flexBottomText: {
-        display: 'flex'
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 2,
     },
     tinyLogo: {
         width: 50,
@@ -31,6 +39,18 @@ const styles = StyleSheet.create({
     fullName: {
         fontWeight: 'bold',
     },
+    numbers: {
+        fontWeight: 'bold',
+        paddingBottom: 4,
+    },
+    language: {
+        alignSelf: 'baseline',
+        backgroundColor: '#138acf',
+        color: 'white',
+        padding: 5, 
+        borderRadius: 5,
+        overflow: 'hidden',
+    }
 });
 
 const exposeNumbers = (paramNumb) => {
@@ -49,25 +69,25 @@ const RepositoryItem = ({ item }) => {
                 />
                 <View style={styles.flexTopText}>
                     <Text style={styles.fullName}>{item.fullName}</Text>
-                    <Text>{item.description}</Text>
-                    <Text>{item.language}</Text>
+                    <Text style={{ paddingTop: 7, paddingBottom: 7}}>{item.description}</Text>
+                    <Text style={styles.language}>{item.language}</Text>
                 </View>
             </View>
             <View style={styles.flexBottom}>
                 <View style={styles.flexBottomText}>
-                    <Text>{exposeNumbers(item.stargazersCount)}</Text>
+                    <Text style={styles.numbers}>{exposeNumbers(item.stargazersCount)}</Text>
                     <Text>Stars</Text>
                 </View>
                 <View style={styles.flexBottomText}>
-                    <Text>{exposeNumbers(item.forksCount)}</Text>
+                    <Text style={styles.numbers}>{exposeNumbers(item.forksCount)}</Text>
                     <Text>Forks</Text>
                 </View>
                 <View style={styles.flexBottomText}>
-                    <Text>{exposeNumbers(item.reviewCount)}</Text>
+                    <Text style={styles.numbers}>{exposeNumbers(item.reviewCount)}</Text>
                     <Text>Reviews</Text>
                 </View>
                 <View style={styles.flexBottomText}>
-                    <Text>{exposeNumbers(item.ratingAverage)}</Text>
+                    <Text style={styles.numbers}>{exposeNumbers(item.ratingAverage)}</Text>
                     <Text>Rating</Text>
                 </View>
             </View>
