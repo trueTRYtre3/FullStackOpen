@@ -1,6 +1,6 @@
 import React from 'react';
 import Main from './src/components/Main';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,11 +13,6 @@ const styles = StyleSheet.create({
 
 const App = () => {
   return <Main />;
-  // return (
-  //   <View style={styles.container}>
-  //     <RepositoryList />
-  //   </View>
-  // );
 };
 
 export default App;
