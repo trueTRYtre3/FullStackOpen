@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
         padding: 5, 
         borderRadius: 5,
         overflow: 'hidden',
-    }
+    },
+    text: {
+        color: 'grey',
+    },
 });
 
 const exposeNumbers = (paramNumb) => {
@@ -69,26 +72,26 @@ const RepositoryItem = ({ item }) => {
                 />
                 <View style={styles.flexTopText}>
                     <Text style={styles.fullName}>{item.fullName}</Text>
-                    <Text style={{ paddingTop: 7, paddingBottom: 7}}>{item.description}</Text>
+                    <Text style={{ paddingTop: 7, paddingBottom: 7, color: 'grey' }}>{item.description}</Text>
                     <Text style={styles.language}>{item.language}</Text>
                 </View>
             </View>
             <View style={styles.flexBottom}>
                 <View style={styles.flexBottomText}>
                     <Text style={styles.numbers}>{exposeNumbers(item.stargazersCount)}</Text>
-                    <Text>Stars</Text>
+                    <Text style={styles.text}>Stars</Text>
                 </View>
                 <View style={styles.flexBottomText}>
                     <Text style={styles.numbers}>{exposeNumbers(item.forksCount)}</Text>
-                    <Text>Forks</Text>
+                    <Text style={styles.text}>Forks</Text>
                 </View>
                 <View style={styles.flexBottomText}>
                     <Text style={styles.numbers}>{exposeNumbers(item.reviewCount)}</Text>
-                    <Text>Reviews</Text>
+                    <Text style={styles.text}>Reviews</Text>
                 </View>
                 <View style={styles.flexBottomText}>
                     <Text style={styles.numbers}>{exposeNumbers(item.ratingAverage)}</Text>
-                    <Text>Rating</Text>
+                    <Text style={styles.text}>Rating</Text>
                 </View>
             </View>
         </View> 
