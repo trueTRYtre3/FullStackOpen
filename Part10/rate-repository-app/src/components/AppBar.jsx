@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import AppBarTab from './AppBarTab';
 import SignInTab from './SignInTab';
@@ -9,21 +9,18 @@ const style = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
         paddingBottom: 20,
         backgroundColor: '#24292e',
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    text: {
-        color: 'white',
-        fontWeight: 'bold',
-        marginLeft: 15,
+        // display: 'flex',
+        // flexDirection: 'row'
     },
 });
 
 const AppBar = () => {
     return ( 
         <View style={style.container}>
-            <AppBarTab />
-            <SignInTab />
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <AppBarTab />
+                <SignInTab />
+            </ScrollView>
         </View>
     );
 };
