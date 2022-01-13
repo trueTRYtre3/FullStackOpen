@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { Pressable, Text, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
 
 const style = StyleSheet.create({
@@ -10,14 +10,14 @@ const style = StyleSheet.create({
     },
 });
 
-const AppBarTab = () => {
+const SignInTab = () => {
     return (
         <Pressable>
-            <Link to='/' underlayColor="transparent">
-                <Text style={style.repositories}>Repositories</Text>
+            <Link to='/login' underlayColor="transparent">
+                <Text style={style.repositories}>Sign In</Text>
             </Link>
         </Pressable>
     );
 };
 
-export default AppBarTab;
+export default SignInTab;
