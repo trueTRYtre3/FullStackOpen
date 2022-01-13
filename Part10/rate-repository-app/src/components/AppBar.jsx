@@ -9,8 +9,6 @@ const style = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
         paddingBottom: 20,
         backgroundColor: '#24292e',
-        // display: 'flex',
-        // flexDirection: 'row'
     },
 });
 
@@ -19,7 +17,7 @@ const AppBar = () => {
         <View style={style.container}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <AppBarTab />
-                <SignInTab />
+                <SignInTab /> 
             </ScrollView>
         </View>
     );
