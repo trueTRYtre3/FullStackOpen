@@ -1,12 +1,11 @@
 import React from 'react';
-import { TextInput as NativeTextInput, StyleSheet } from 'react-native';
+import { TextInput as NativeTextInput } from 'react-native';
 
-const styles = StyleSheet.create({})
-
-const TextInput = ({ style, error, ...props }) => {
+const TextInput = ({ style, error, name, ...props }) => {
     const textInputStyle = [style];
+    const inputShow = name === 'password' ? true : false
 
-    return <NativeTextInput style={textInputStyle} {...props} />
+    return <NativeTextInput secureTextEntry={inputShow} style={textInputStyle} {...props} />
 };
 
 export default TextInput;
